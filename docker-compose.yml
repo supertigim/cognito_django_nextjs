@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      target: development
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    command: >
+      sh -c "sh migrations.sh && python manage.py runserver 0.0.0.0:8000"
