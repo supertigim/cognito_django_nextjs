@@ -25,3 +25,8 @@ urlpatterns = [
     # Admin endpoint
     path("admin/", admin.site.urls),
 ]
+
+# API endpoints
+urlpatterns += [
+    path("", include("apps.core.urls")),
+]

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "corsheaders",
     "rest_framework",
+    "apps.core",
+    "apps.accounts",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.RemoteUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -112,6 +115,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console_handler": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        # More info on '' (unnamed) loggers at the end of this comment
+        "": {
+            "level": "DEBUG",
+            "handlers": ["console_handler"],
+        },
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -128,6 +148,9 @@ USE_TZ = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+AUTH_USER_MODEL = "accounts.User"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -140,13 +163,36 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES": ("JWT",),
-}
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.RemoteUserBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+COGNITO_AWS_REGION = os.environ.get("COGNITO_AWS_REGION")
+COGNITO_USER_POOL = os.environ.get("COGNITO_USER_POOL")
+COGNITO_ISSUER = (
+    f"https://cognito-idp.{COGNITO_AWS_REGION}.amazonaws.com/{COGNITO_USER_POOL}"
+)
+
 
 # Rest Framework Settings
 REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("apps.core.permissions.DenyAny",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "apps.core.authentication.CoreJWTAuthentication",
     ),
 }
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "ISSUER": COGNITO_ISSUER,
+    "JWK_URL": f"{COGNITO_ISSUER}/.well-known/jwks.json",
+    "USER_ID_CLAIM": "sub",
+    "USER_ID_FIELD": "username",
+    # "AUTH_TOKEN_CLASSES": ("apps.core.tokens.AccessToken",),
+    "ALGORITHM": "RS256",
+    "TOKEN_TYPE_CLAIM": "token_use",
+    # "AUDIENCE": "2s4rvqgo33fbrigfa05a1m7u6p",
+}
+ 
