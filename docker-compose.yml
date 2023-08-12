@@ -13,3 +13,17 @@ services:
       - ./backend/.env
     command: >
       sh -c "sh migrations.sh && python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./frontend/.env.local
+    volumes:
+      - ./frontend:/app
+      - /frontend/node_modules
+      - /frontend/.next
+    depends_on:
+      - backend

@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3005",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.0",
+    "@heroicons/react": "^2.0.18",
+    "@types/node": "^20.4.10",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "next": "latest",
+    "oidc-client-ts": "^2.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-oidc-context": "^2.2.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.13",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3"
+  }
+}
