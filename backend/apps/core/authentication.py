@@ -13,9 +13,12 @@ class CoreJWTAuthentication(JWTAuthentication):
         """
         Attempts to find and return a user using the given validated token.
         """
-        logger.info(validated_token)
         try:
+            # logger.info(validated_token)
             user_id = validated_token[api_settings.USER_ID_CLAIM]
+            # if 'cognito:groups' in validated_token:
+            #     logger.info(validated_token['cognito:groups'])
+            #     logger.info("{}".format(type(validated_token['cognito:groups'])))
         except KeyError:
             raise InvalidToken(_("Token contained no recognizable user identification"))
 

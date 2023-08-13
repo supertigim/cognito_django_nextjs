@@ -126,7 +126,7 @@ LOGGING = {
     "loggers": {
         # More info on '' (unnamed) loggers at the end of this comment
         "": {
-            "level": "DEBUG",
+            "level": "INFO",
             "handlers": ["console_handler"],
         },
     },
@@ -193,6 +193,6 @@ SIMPLE_JWT = {
     # "AUTH_TOKEN_CLASSES": ("apps.core.tokens.AccessToken",),
     "ALGORITHM": "RS256",
     "TOKEN_TYPE_CLAIM": "token_use",
-    # "AUDIENCE": "2s4rvqgo33fbrigfa05a1m7u6p",
+    # "AUDIENCE": "your_audience_id",
 }
  
