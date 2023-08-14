@@ -23,7 +23,7 @@ services:
       - ./frontend/.env.local
     volumes:
       - ./frontend:/app
-      - /frontend/node_modules
-      - /frontend/.next
+      - /app/node_modules
+      - /app/.next
     depends_on:
       - backend

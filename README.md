@@ -3,7 +3,9 @@ This project shows how to integrate AWS Cognito (Hosted UI) into a NextJS and Dj
 
 ## How to run ##
 
-This project uses docker-compose to run the Django and NextJS projects. To run the project, run the following command:
+Port **3005** for frontend and **8000** for backend are used. Therefore, other services that use these ports should be stopped before running the project.
+
+To run the project, run the following command:
 
 ```bash
 $ docker-compose up --build 
