@@ -1,5 +1,5 @@
-# cognito_django_nextjs
-This project shows how to integrate AWS Cognito into a NextJS and Django (DRF) project.
+# Introduction #
+This project shows how to integrate AWS Cognito (Hosted UI) into a NextJS and Django (DRF) project.
 
 ## How to run ##
 
@@ -14,6 +14,17 @@ $ docker-compose exec backend bash
 # To enter the frontend container
 $ docker-compose exec frontend sh
 ```
+
+## Admin page ##
+
+Default username and password for admin page is `admin` and `admin`.
+
+- http://localhost:8000/admin
+
+
+## How to use ##
+
+- [http://localhost:3005](http://localhost:3005)
 
 ## References ##
 
